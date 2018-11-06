@@ -5,3 +5,5 @@ Este magnífico bot para Telegram irá responder palavras como "comunismo", "soc
 Necessita de um gerador para a web? [Use este](https://github.com/asgunzi/BullshitComunista)
 
 Necessita de um bot que te envie fotos de Richard Stallman? [Use este](https://github.com/jcanabarro/StallmanBot)
+
+![Communism](res/bullshit_example.jpg)
