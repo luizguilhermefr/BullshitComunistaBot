@@ -21,10 +21,14 @@ class Bot:
         last_updates = []
         for update in self.updates['result']:
             last_updates.append(int(update['update_id']))
+
         return max(last_updates)
 
     def has_messages(self):
-        return self.updates is not None and len(self.updates['result']) > 0
+        if self.updates is not None and 'result' in self.updates:
+            return len(self.updates['result']) > 0
+
+        return False
 
     @staticmethod
     def is_group_message(message):

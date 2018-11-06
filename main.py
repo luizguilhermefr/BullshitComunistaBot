@@ -1,4 +1,5 @@
 import time
+import configparser
 
 from bot import Bot
 
@@ -8,8 +9,10 @@ last_update_id = None
 
 def setup():
     global bot
-    url = None
-    token = None
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    token = config['DEFAULT']['token']
+    url = 'https://api.telegram.org/bot{}/'.format(token)
     bot = Bot(url, token)
 
 
