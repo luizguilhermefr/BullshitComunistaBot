@@ -1,6 +1,6 @@
 from activation import activation_words
 from bullshit import make_bullshit
-from http import Http
+from http_client import HttpClient
 
 
 class Bot:
@@ -13,7 +13,7 @@ class Bot:
         url = self.url + 'getUpdates?timeout=100'
         if last_update_id:
             url += '&offset={}'.format(last_update_id)
-        self.updates = Http.get(url)
+        self.updates = HttpClient.get(url)
 
     def get_last_update_id(self):
         if self.updates is None:
@@ -26,19 +26,30 @@ class Bot:
     def has_messages(self):
         return self.updates is not None and len(self.updates['result']) > 0
 
-    def handle(self):
-        for update in self.updates['result']:
-            text = update['message']['text']
-            chat_id = update['message']['chat']['id']
+    @staticmethod
+    def is_group_message(message):
+        return message['chat']['type'] == "group"
+
+    @staticmethod
+    def should_reply(message):
+        if 'text' in message:
+            text = message['text']
             for token in str.lower(text).split(' '):
                 if token in activation_words:
-                    self.send(chat_id)
-                    break
+                    return True
+        return False
+
+    def handle(self):
+        for update in self.updates['result']:
+            message = update['message']
+            if self.should_reply(message):
+                chat_id = message['chat']['id']
+                self.send(chat_id)
+                break
 
     def send(self, chat_id):
-        data = {
-            'text': make_bullshit(),
-            'chat_id': chat_id
-        }
-        url = self.url + 'sendMessage'
-        Http.post(url, data)
+        print('Sending message...')
+        text = make_bullshit()
+        url = self.url + 'sendMessage?text={}&chat_id={}'.format(text, chat_id)
+        res = HttpClient.get(url)
+        print(res)

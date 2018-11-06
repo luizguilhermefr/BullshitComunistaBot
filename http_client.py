@@ -1,7 +1,7 @@
 import requests
 
 
-class Http:
+class HttpClient:
     @staticmethod
     def get(url):
         headers = {

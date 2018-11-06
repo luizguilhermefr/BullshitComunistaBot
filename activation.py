@@ -1,6 +1,8 @@
 activation_words = [
     'comunismo',
+    'comunista',
     'socialismo',
+    'socialista',
     'psol',
     'pt',
     'pcdob',

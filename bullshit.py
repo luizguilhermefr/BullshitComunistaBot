@@ -419,4 +419,8 @@ tab3 = [
 
 def make_bullshit():
     global tab0, tab1, tab2, tab3
-    return random.choice(tab0) + random.choice(tab1) + random.choice(tab2) + random.choice(tab3)
+    return random.choice(tab0) + \
+           ' ' + \
+           random.choice(tab1) + \
+           ' ' + random.choice(tab2) + \
+           ' ' + random.choice(tab3)
